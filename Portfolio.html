@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Portfolio · Glass v26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --ink: #1b2240;
+  --ink-2: #2f3a5f;
+  --muted: #5f6a87;
+  --muted-2: #8a93ad;
+  --hair: rgba(18, 28, 70, 0.08);
+  --hair-2: rgba(18, 28, 70, 0.14);
+  --accent: oklch(0.55 0.15 240);
+  --accent-2: oklch(0.68 0.12 220);
+  --accent-3: oklch(0.72 0.13 280);
+  --paper: #eef1f8;
+  --radius: 28px;
+  --glass-white: rgba(255, 255, 255, 0.22);
+  --glass-white-soft: rgba(255, 255, 255, 0.14);
+  --shadow-sm: 0 1px 2px rgba(30,40,90,.06), 0 4px 16px rgba(30,40,90,.06);
+  --shadow-md: 0 10px 30px rgba(40, 60, 130, 0.12), 0 2px 6px rgba(40, 60, 130, 0.06);
+  --shadow-lg: 0 24px 60px rgba(40, 60, 130, 0.20), 0 6px 18px rgba(40, 60, 130, 0.10);
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display: "Fraunces", "Cormorant Garamond", Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv11", "ss01", "ss03";
+  overflow-x: hidden;
+}
+
+/* ============ BACKGROUND — PIXEL SUNRISE ============ */
+.bg-root {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-color: #c9d2df;
+  background-image: url("data:image/png;base64,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");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  overflow: hidden;
+}
+/* softening wash so UI reads cleanly */
+.bg-root::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.35) 55%, rgba(255,255,255,0.15) 100%);
+  pointer-events: none;
+}
+.bg-grid { display: none; }
+.orb { display: none; }
+.orb-f { display: none; }
+@keyframes drift {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(40px,-30px) scale(1.06); }
+  66% { transform: translate(-30px,20px) scale(0.96); }
+}
+.bg-noise { display: none; }
+.bg-root::after { display: none; }
+
+/* ============ GLASS PRIMITIVES ============ */
+.glass-surface {
+  position: relative;
+  background: var(--glass-white);
+  border: 0.5px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.7) inset,
+    0 -1px 0 rgba(255,255,255,0.25) inset,
+    var(--shadow-md);
+  isolation: isolate;
+  overflow: hidden;
+  transition: box-shadow 0.3s cubic-bezier(.2,.7,.2,1), transform 0.3s cubic-bezier(.2,.7,.2,1);
+}
+/* painterly halo behind every glass surface */
+.glass-surface::before {
+  content: "";
+  position: absolute;
+  inset: -30px;
+  background:
+    radial-gradient(60% 80% at 20% 20%, rgba(232,200,160,0.35), transparent 60%),
+    radial-gradient(60% 80% at 80% 80%, rgba(160,180,220,0.35), transparent 60%);
+  filter: blur(26px);
+  z-index: -1;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.glass-surface .glass-edge {
+  position: absolute; inset: 0; pointer-events: none;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0) 35%, rgba(255,255,255,0) 65%, rgba(255,255,255,0.5)) border-box;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0.9;
+}
+.glass-surface .glass-spec {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(120% 60% at 30% 0%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 45%),
+    radial-gradient(80% 40% at 80% 100%, rgba(180,200,255,0.22) 0%, rgba(180,200,255,0) 60%);
+  mix-blend-mode: screen;
+}
+.glass-surface .glass-tint {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.01) 40%, rgba(255,255,255,0.04));
+}
+.glass-surface .glass-content {
+  position: relative; z-index: 1; display: block;
+}
+
+/* When the glass surface needs to lay out its children in a grid/flex,
+   apply it to the .glass-content wrapper (since the decorative spans are also direct children). */
+.hero > .glass-content {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 32px;
+  align-items: center;
+  width: 100%;
+}
+.project-card > .glass-content {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  width: 100%;
+}
+.nav > .glass-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+.detail > .glass-content { display: block; width: 100%; }
+
+/* Pill button */
+.glass-pill {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(18px) saturate(1.6);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  border: 0.5px solid rgba(255,255,255,0.6);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset, var(--shadow-sm);
+  color: var(--ink);
+  font: 500 13px/1 var(--font-sans);
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.glass-pill .glass-content {
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.glass-pill:hover { transform: translateY(-1px); box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, var(--shadow-md); }
+.glass-pill:active { transform: translateY(0); }
+.glass-pill.is-active {
+  background: rgba(20, 30, 80, 0.85);
+  color: #fff;
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* ============ LAYOUT ============ */
+.page {
+  position: relative; z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 28px 120px;
+}
+
+/* Sticky nav */
+.nav {
+  position: sticky; top: 16px;
+  z-index: 40;
+  padding: 10px 14px 10px 20px;
+  margin-bottom: 36px;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px;
+  font: 600 14px var(--font-sans);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.nav-links { flex-shrink: 1; min-width: 0; }
+.nav-brand .dot {
+  width: 22px; height: 22px; border-radius: 7px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-3));
+  box-shadow: 0 2px 6px rgba(80,70,220,0.35), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.nav-links { display: flex; gap: 4px; }
+.nav-link {
+  padding: 7px 12px; border-radius: 999px;
+  font: 500 13px var(--font-sans); color: var(--muted);
+  text-decoration: none; cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-link:hover { color: var(--ink); background: rgba(12,18,40,0.04); }
+.nav-link.active { color: var(--ink); background: rgba(12,18,40,0.06); }
+
+/* Module section common */
+.module { margin-bottom: 56px; scroll-margin-top: 100px; }
+.module-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 0 4px;
+}
+.module-eyebrow {
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+.module-title {
+  margin: 6px 0 0;
+  font: 400 40px/1.05 var(--font-display);
+  letter-spacing: -0.02em;
+  font-style: italic;
+  font-variation-settings: "SOFT" 80;
+}
+.module-sub {
+  font: 400 14px var(--font-sans);
+  color: var(--muted);
+  letter-spacing: -0.01em;
+}
+
+/* ============ HERO ============ */
+.hero {
+  padding: 36px;
+  margin-bottom: 48px;
+}
+.hero-left .status {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px 6px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.55);
+  border: 0.5px solid rgba(255,255,255,0.8);
+  font: 500 12px var(--font-mono); color: var(--ink-2);
+  letter-spacing: -0.01em;
+}
+.hero-left .status .pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: oklch(0.72 0.18 150);
+  box-shadow: 0 0 0 0 oklch(0.72 0.18 150 / 0.6);
+  animation: pulse 1.8s ease-out infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 oklch(0.72 0.18 150 / 0.5); }
+  100% { box-shadow: 0 0 0 12px oklch(0.72 0.18 150 / 0); }
+}
+.hero h1 {
+  margin: 18px 0 14px;
+  font: 400 64px/1.0 var(--font-display);
+  letter-spacing: -0.025em;
+  font-variation-settings: "SOFT" 80, "WONK" 1;
+}
+.hero h1 .accent {
+  background: linear-gradient(120deg, var(--accent) 0%, var(--accent-3) 50%, #b88a6a 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  font-style: italic;
+  font-weight: 300;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+}
+.hero p {
+  margin: 0 0 22px;
+  font: 400 17px/1.55 var(--font-sans);
+  color: var(--ink-2);
+  max-width: 54ch;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  font: 400 13px var(--font-mono); color: var(--muted);
+}
+.hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.hero-meta .kbd {
+  padding: 2px 6px; border-radius: 6px;
+  background: rgba(12,18,40,0.05);
+  color: var(--ink-2);
+}
+.hero-actions { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+
+.hero-right {
+  position: relative;
+  aspect-ratio: 1; width: 100%;
+}
+.avatar-frame {
+  position: relative; width: 100%; height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  background:
+    radial-gradient(80% 60% at 30% 20%, #f2d5a8 0%, transparent 60%),
+    radial-gradient(80% 60% at 80% 100%, #7991c2 0%, transparent 55%),
+    linear-gradient(135deg, #d3b999 0%, #9fb2d4 50%, #5c7aa6 100%);
+  box-shadow: var(--shadow-lg);
+}
+.avatar-frame::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='b'><feTurbulence type='fractalNoise' baseFrequency='0.015 0.11' numOctaves='3' seed='9'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 0.95  0 0 0 0 0.8  0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23b)'/></svg>");
+  mix-blend-mode: soft-light;
+  opacity: 0.8;
+}
+.avatar-frame .face {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font: 300 120px var(--font-display);
+  color: rgba(255,255,255,0.85);
+  letter-spacing: -0.05em;
+  text-shadow: 0 6px 20px rgba(30,40,90,0.25);
+}
+.avatar-frame::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(80% 40% at 30% 10%, rgba(255,255,255,0.45), transparent 60%),
+    linear-gradient(180deg, transparent 60%, rgba(20,30,80,0.15));
+}
+.avatar-tag {
+  position: absolute; bottom: -14px; left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 14px; border-radius: 999px;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(20px);
+  border: 0.5px solid rgba(255,255,255,0.9);
+  font: 500 12px var(--font-mono);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+/* ============ PROJECTS ============ */
+.projects-grid { display: grid; gap: 20px; }
+.project-card {
+  padding: 0;
+  overflow: hidden;
+}
+.project-body { padding: 32px 32px 28px; display: flex; flex-direction: column; }
+.project-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 500 11px/1 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 5px 10px;
+  background: oklch(0.95 0.04 265);
+  border-radius: 999px;
+  align-self: flex-start;
+}
+.project-card h3 {
+  margin: 16px 0 8px;
+  font: 400 34px/1.1 var(--font-display);
+  letter-spacing: -0.02em;
+  font-variation-settings: "SOFT" 60;
+}
+.project-card .project-desc {
+  margin: 0 0 18px;
+  font: 400 15px/1.55 var(--font-sans);
+  color: var(--ink-2);
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
+}
+.project-feats {
+  list-style: none; padding: 0; margin: 0 0 22px;
+  display: grid; gap: 8px;
+}
+.project-feats li {
+  display: grid; grid-template-columns: 18px 1fr; gap: 10px;
+  font: 400 13px/1.45 var(--font-sans);
+  color: var(--ink-2);
+}
+.project-feats li::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent); margin-top: 8px;
+}
+.project-tags {
+  margin-top: auto;
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.tag {
+  font: 500 11px var(--font-mono);
+  padding: 4px 9px; border-radius: 6px;
+  background: rgba(12,18,40,0.05); color: var(--ink-2);
+}
+/* Project visual */
+.project-visual {
+  position: relative;
+  min-height: 340px;
+  background:
+    radial-gradient(60% 60% at 30% 20%, #f0d9b8, transparent 60%),
+    radial-gradient(70% 70% at 85% 80%, #a9bedc, transparent 60%),
+    linear-gradient(135deg, #e9dec5, #c6d2e8 60%, #dbe3ee);
+  overflow: hidden;
+  border-left: 0.5px solid rgba(255,255,255,0.9);
+}
+.project-visual::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='b'><feTurbulence type='fractalNoise' baseFrequency='0.01 0.08' numOctaves='3' seed='3'/><feColorMatrix values='0 0 0 0 0.6  0 0 0 0 0.65  0 0 0 0 0.8  0 0 0 0.3 0'/></filter><rect width='100%' height='100%' filter='url(%23b)'/></svg>");
+  mix-blend-mode: soft-light;
+  opacity: 0.7;
+  pointer-events: none;
+}
+.mock-chat {
+  position: absolute; inset: 22px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.mock-row {
+  padding: 10px 14px;
+  border-radius: 14px;
+  font: 500 12px var(--font-sans);
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+  border: 0.5px solid rgba(255,255,255,0.8);
+  box-shadow: 0 1px 2px rgba(12,18,40,0.04);
+  max-width: 86%;
+}
+.mock-row.user { align-self: flex-end; background: rgba(20,30,80,0.9); color: #fff; border-color: rgba(255,255,255,0.1); }
+.mock-row.ai { align-self: flex-start; }
+.mock-chart {
+  align-self: flex-start;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(14px);
+  border: 0.5px solid rgba(255,255,255,0.8);
+  box-shadow: 0 2px 8px rgba(12,18,40,0.06);
+  width: 88%;
+}
+.mock-chart .bars {
+  display: flex; align-items: flex-end; gap: 6px; height: 64px; margin-top: 8px;
+}
+.mock-chart .bars span {
+  flex: 1; border-radius: 4px 4px 2px 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-3));
+  opacity: 0.8;
+}
+.mock-chart .cap {
+  font: 500 10px var(--font-mono); color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* ============ KNOWLEDGE ============ */
+.knowledge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.k-card {
+  cursor: pointer;
+  padding: 26px 24px 22px;
+  display: flex; flex-direction: column;
+  min-height: 280px;
+  transition: transform 0.3s cubic-bezier(.2,.7,.2,1), box-shadow 0.3s;
+}
+.k-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, var(--shadow-lg);
+}
+.k-icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(255,255,255,0.55));
+  border: 0.5px solid rgba(255,255,255,0.9);
+  box-shadow: 0 4px 16px rgba(80,90,180,0.18), inset 0 1px 0 rgba(255,255,255,0.9);
+  margin-bottom: 16px;
+}
+.k-card h3 {
+  margin: 0 0 8px;
+  font: 400 26px/1.15 var(--font-display);
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 60;
+}
+.k-card .k-desc {
+  margin: 0 0 16px;
+  font: 400 13.5px/1.5 var(--font-sans);
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+.k-meta {
+  margin-top: auto;
+  display: flex; align-items: center; justify-content: space-between;
+  font: 500 11px var(--font-mono); color: var(--muted);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.k-meta .open-arrow {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(20,30,80,0.08);
+  display: grid; place-items: center;
+  transition: background 0.2s, transform 0.2s;
+}
+.k-card:hover .open-arrow { background: var(--accent); color: white; transform: translateX(2px); }
+.k-topics { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.k-topic {
+  font: 500 10.5px var(--font-mono);
+  padding: 3px 8px; border-radius: 6px;
+  background: rgba(12,18,40,0.05); color: var(--muted);
+  letter-spacing: -0.005em;
+}
+
+/* ============ DETAIL OVERLAY ============ */
+.overlay-root {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(15, 20, 45, 0.25);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  display: flex; justify-content: center; align-items: flex-start;
+  overflow-y: auto;
+  padding: 40px 24px;
+  animation: overlayIn 0.35s cubic-bezier(.2,.7,.2,1);
+}
+@keyframes overlayIn { from { opacity: 0; backdrop-filter: blur(0); } to { opacity: 1; } }
+
+.detail {
+  position: relative;
+  width: 100%; max-width: 1040px;
+  padding: 0;
+  animation: detailIn 0.4s cubic-bezier(.2,.7,.2,1);
+}
+@keyframes detailIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.detail-close {
+  position: absolute; top: 16px; right: 16px; z-index: 5;
+  width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: none; cursor: pointer;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+  border: 0.5px solid rgba(255,255,255,0.9);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, background 0.2s;
+}
+.detail-close:hover { transform: rotate(90deg); background: rgba(255,255,255,0.9); }
+.detail-header {
+  padding: 36px 40px 24px;
+  border-bottom: 0.5px solid rgba(12,18,40,0.08);
+}
+.detail-header .eyebrow {
+  font: 500 11px var(--font-mono); letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+}
+.detail-header h2 {
+  margin: 10px 0 8px;
+  font: 400 42px/1.05 var(--font-display);
+  letter-spacing: -0.02em;
+  font-style: italic;
+  font-variation-settings: "SOFT" 80;
+}
+.detail-header p {
+  margin: 0;
+  font: 400 15px/1.55 var(--font-sans);
+  color: var(--ink-2);
+  max-width: 64ch;
+}
+
+/* Step layout */
+.detail-body {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 520px;
+}
+.step-rail {
+  border-right: 0.5px solid rgba(12,18,40,0.08);
+  padding: 24px 16px;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.step-item {
+  display: grid; grid-template-columns: 28px 1fr; gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border: none; background: none; text-align: left;
+  border-radius: 10px; cursor: pointer;
+  font: 500 13px var(--font-sans);
+  color: var(--muted);
+  letter-spacing: -0.005em;
+  transition: background 0.2s, color 0.2s;
+}
+.step-item:hover { background: rgba(12,18,40,0.04); color: var(--ink); }
+.step-item.active {
+  background: rgba(20,30,80,0.06);
+  color: var(--ink);
+}
+.step-item .num {
+  width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center;
+  font: 500 11px var(--font-mono);
+  background: rgba(12,18,40,0.06);
+  color: var(--muted);
+  margin-top: 1px;
+}
+.step-item.active .num,
+.step-item.done .num {
+  background: var(--accent); color: white;
+}
+.step-item .tick { font: 500 11px var(--font-mono); }
+
+.step-stage {
+  padding: 32px 40px 40px;
+  display: flex; flex-direction: column;
+}
+.step-label {
+  font: 500 11px var(--font-mono); letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted-2);
+}
+.step-stage h3 {
+  margin: 6px 0 10px;
+  font: 400 28px/1.15 var(--font-display);
+  letter-spacing: -0.015em;
+  font-variation-settings: "SOFT" 60;
+}
+.step-stage p.lede {
+  margin: 0 0 22px;
+  font: 400 14.5px/1.6 var(--font-sans);
+  color: var(--ink-2);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+.step-diagram {
+  border-radius: 18px;
+  background: rgba(255,255,255,0.5);
+  border: 0.5px solid rgba(255,255,255,0.85);
+  padding: 24px;
+  margin-bottom: 18px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 6px rgba(12,18,40,0.04);
+}
+.step-notes {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-bottom: 20px;
+}
+.note {
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.55);
+  border: 0.5px solid rgba(255,255,255,0.85);
+}
+.note h4 {
+  margin: 0 0 6px;
+  font: 500 11px var(--font-mono);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.note p {
+  margin: 0;
+  font: 400 13px/1.5 var(--font-sans);
+  color: var(--ink-2);
+}
+.note code {
+  font: 500 12px var(--font-mono);
+  background: rgba(12,18,40,0.06);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+.step-nav {
+  margin-top: auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 16px;
+  border-top: 0.5px solid rgba(12,18,40,0.08);
+}
+.step-nav .counter {
+  font: 500 12px var(--font-mono); color: var(--muted);
+}
+
+/* ============ TWEAKS ============ */
+.tweaks {
+  position: fixed; right: 20px; bottom: 20px; z-index: 200;
+  width: 280px; padding: 18px;
+  font: 500 13px var(--font-sans);
+}
+.tweaks h4 {
+  margin: 0 0 12px;
+  font: 600 13px var(--font-sans); letter-spacing: -0.01em;
+}
+.tweak-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.tweak-row label { font: 500 12px var(--font-sans); color: var(--ink-2); }
+.tweak-chips { display: flex; gap: 4px; }
+.tweak-chip {
+  padding: 4px 8px; border-radius: 999px;
+  border: 0.5px solid rgba(12,18,40,0.15);
+  background: rgba(255,255,255,0.7);
+  font: 500 11px var(--font-mono);
+  cursor: pointer; color: var(--ink-2);
+  transition: all 0.2s;
+}
+.tweak-chip.active {
+  background: var(--ink); color: white; border-color: var(--ink);
+}
+.tweak-swatch {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 0.5px solid rgba(12,18,40,0.2); cursor: pointer;
+  transition: transform 0.2s;
+}
+.tweak-swatch.active { transform: scale(1.15); border-width: 2px; border-color: var(--ink); }
+
+/* Responsive */
+@media (max-width: 960px) {
+  .nav-brand span:last-child { display: none; }
+  .nav-links { gap: 0; }
+  .nav-link { padding: 7px 10px; font-size: 12px; }
+}
+@media (max-width: 860px) {
+  .hero > .glass-content { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 40px; }
+  .hero-right { max-width: 200px; }
+  .project-card > .glass-content { grid-template-columns: 1fr; }
+  .project-visual { min-height: 220px; border-left: none; border-top: 0.5px solid rgba(255,255,255,0.9); }
+  .knowledge-grid { grid-template-columns: 1fr; }
+  .detail-body { grid-template-columns: 1fr; }
+  .step-rail { flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 0.5px solid rgba(12,18,40,0.08); }
+}
+
+</style>
+<script>
+  window.__TWEAKS__ = {"glass":"heavy","accent":"indigo","bg":"warm","density":"comfy"};
+</script>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+// Liquid glass primitives — layered backdrop-filter + specular highlight + chromatic edge.
+// Kept as simple components so every module shares the same treatment.
+
+const GlassSurface = ({ children, className = "", style = {}, radius = 28, intensity = "medium", onClick, as: Tag = "div", ...rest }) => {
+  const blur = intensity === "heavy" ? 32 : intensity === "subtle" ? 10 : 20;
+  const sat = intensity === "heavy" ? 1.9 : intensity === "subtle" ? 1.25 : 1.6;
+  return (
+    <Tag
+      onClick={onClick}
+      className={`glass-surface ${className}`}
+      style={{
+        borderRadius: radius,
+        backdropFilter: `blur(${blur}px) saturate(${sat})`,
+        WebkitBackdropFilter: `blur(${blur}px) saturate(${sat})`,
+        ...style,
+      }}
+      {...rest}
+    >
+      {/* Inner specular highlight + edge refraction */}
+      <span className="glass-edge" aria-hidden="true" style={{ borderRadius: radius }} />
+      <span className="glass-spec" aria-hidden="true" style={{ borderRadius: radius }} />
+      <span className="glass-tint" aria-hidden="true" style={{ borderRadius: radius }} />
+      <span className="glass-content">{children}</span>
+    </Tag>
+  );
+};
+
+const GlassPill = ({ children, className = "", style = {}, onClick, active = false }) => (
+  <button
+    onClick={onClick}
+    className={`glass-pill ${active ? "is-active" : ""} ${className}`}
+    style={style}
+  >
+    <span className="glass-edge" aria-hidden="true" style={{ borderRadius: 999 }} />
+    <span className="glass-spec" aria-hidden="true" style={{ borderRadius: 999 }} />
+    <span className="glass-tint" aria-hidden="true" style={{ borderRadius: 999 }} />
+    <span className="glass-content">{children}</span>
+  </button>
+);
+
+// Animated background: slow-drifting colorful orbs that glass refracts.
+const Background = () => (
+  <div className="bg-root" aria-hidden="true">
+    <div className="bg-grid" />
+    <div className="orb orb-a" />
+    <div className="orb orb-b" />
+    <div className="orb orb-c" />
+    <div className="orb orb-d" />
+    <div className="orb orb-e" />
+    <div className="orb-f" />
+    <div className="bg-noise" />
+  </div>
+);
+
+Object.assign(window, { GlassSurface, GlassPill, Background });
+
+// Interactive step-by-step walkthroughs for the three knowledge topics.
+// Each topic has: id, title, summary, topics[], icon, steps[] (each step has
+// a title, lede, a diagram component, and 2 notes).
+
+// ---------- Shared diagram primitives ----------
+const Box = ({ x, y, w, h, label, sub, fill = "rgba(255,255,255,0.9)", stroke = "rgba(12,18,40,0.18)", dashed = false, accent = false }) => (
+  <g>
+    <rect
+      x={x} y={y} width={w} height={h} rx="10"
+      fill={accent ? "oklch(0.58 0.18 265)" : fill}
+      stroke={stroke}
+      strokeWidth="1"
+      strokeDasharray={dashed ? "4 4" : undefined}
+    />
+    <text x={x + w / 2} y={y + (sub ? h / 2 - 4 : h / 2 + 4)} textAnchor="middle"
+      fontSize="12" fontWeight="600" fontFamily="Inter, system-ui"
+      fill={accent ? "white" : "#0b1020"}>
+      {label}
+    </text>
+    {sub && (
+      <text x={x + w / 2} y={y + h / 2 + 12} textAnchor="middle"
+        fontSize="10" fontFamily="JetBrains Mono, monospace"
+        fill={accent ? "rgba(255,255,255,0.8)" : "#5b6478"}>
+        {sub}
+      </text>
+    )}
+  </g>
+);
+
+const Arrow = ({ x1, y1, x2, y2, label, dashed = false, color = "#5b6478" }) => {
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+  return (
+    <g>
+      <defs>
+        <marker id={`arr-${color.replace(/[^a-z0-9]/gi, "")}`} markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 z" fill={color} />
+        </marker>
+      </defs>
+      <line x1={x1} y1={y1} x2={x2} y2={y2}
+        stroke={color} strokeWidth="1.5"
+        strokeDasharray={dashed ? "4 3" : undefined}
+        markerEnd={`url(#arr-${color.replace(/[^a-z0-9]/gi, "")})`} />
+      {label && (
+        <g>
+          <rect x={mx - 28} y={my - 9} width="56" height="16" rx="4" fill="white" stroke="rgba(12,18,40,0.08)" />
+          <text x={mx} y={my + 3} textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill="#2a3249">{label}</text>
+        </g>
+      )}
+    </g>
+  );
+};
+
+const SvgStage = ({ children, vb = "0 0 640 300" }) => (
+  <svg viewBox={vb} width="100%" style={{ display: "block", height: "auto" }}>
+    {children}
+  </svg>
+);
+
+// ---------- RAG diagrams ----------
+const DiagRagOverview = () => (
+  <SvgStage>
+    <Box x={20} y={120} w={120} h={60} label="User query" sub='"Show revenue by region"' />
+    <Arrow x1={140} y1={150} x2={220} y2={150} />
+    <Box x={220} y={120} w={120} h={60} label="Embedder" sub="text → vector" />
+    <Arrow x1={340} y1={150} x2={420} y2={80} />
+    <Arrow x1={340} y1={150} x2={420} y2={220} dashed />
+    <Box x={420} y={50} w={180} h={60} label="Vector DB" sub="top-k similarity search" />
+    <Box x={420} y={200} w={180} h={60} label="LLM" sub="generate answer" accent />
+    <Arrow x1={510} y1={110} x2={510} y2={200} label="context" />
+  </SvgStage>
+);
+
+const DiagRagChunking = () => (
+  <SvgStage vb="0 0 640 280">
+    <Box x={20} y={110} w={120} h={60} label="Document" sub="handbook.pdf" />
+    <Arrow x1={140} y1={140} x2={220} y2={140} label="split" />
+    <g>
+      <rect x={220} y={40} width={150} height={40} rx={8} fill="white" stroke="rgba(12,18,40,0.18)" />
+      <rect x={220} y={90} width={150} height={40} rx={8} fill="white" stroke="rgba(12,18,40,0.18)" />
+      <rect x={220} y={140} width={150} height={40} rx={8} fill="white" stroke="rgba(12,18,40,0.18)" />
+      <rect x={220} y={190} width={150} height={40} rx={8} fill="white" stroke="rgba(12,18,40,0.18)" />
+      <text x={295} y={64} textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#2a3249">chunk 1 · 512 tok</text>
+      <text x={295} y={114} textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#2a3249">chunk 2 · 512 tok</text>
+      <text x={295} y={164} textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#2a3249">chunk 3 · 512 tok</text>
+      <text x={295} y={214} textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#2a3249">chunk 4 · 512 tok</text>
+    </g>
+    <Arrow x1={370} y1={60} x2={470} y2={110} />
+    <Arrow x1={370} y1={110} x2={470} y2={130} />
+    <Arrow x1={370} y1={160} x2={470} y2={150} />
+    <Arrow x1={370} y1={210} x2={470} y2={170} />
+    <Box x={470} y={100} w={150} h={80} label="Embeddings" sub="[0.12, −0.08, ...]" accent />
+  </SvgStage>
+);
+
+const DiagRagRetrieval = () => (
+  <SvgStage vb="0 0 640 280">
+    <Box x={20} y={20} w={130} h={44} label="query vector" sub="[0.41, 0.09, ...]" accent />
+    <Box x={180} y={20} w={440} h={220} label="" stroke="rgba(12,18,40,0.14)" fill="rgba(255,255,255,0.6)" />
+    <text x={400} y={42} textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#5b6478">vector space · cosine similarity</text>
+    {/* points */}
+    <circle cx={250} cy={130} r={6} fill="oklch(0.58 0.18 265)" />
+    <circle cx={290} cy={110} r={6} fill="oklch(0.58 0.18 265)" />
+    <circle cx={310} cy={150} r={6} fill="oklch(0.58 0.18 265)" />
+    <circle cx={420} cy={180} r={5} fill="#858ea3" />
+    <circle cx={480} cy={90} r={5} fill="#858ea3" />
+    <circle cx={540} cy={180} r={5} fill="#858ea3" />
+    <circle cx={580} cy={120} r={5} fill="#858ea3" />
+    <circle cx={380} cy={210} r={5} fill="#858ea3" />
+    {/* query star */}
+    <circle cx={290} cy={140} r={10} fill="none" stroke="oklch(0.58 0.18 265)" strokeWidth="2" strokeDasharray="3 3" />
+    <circle cx={290} cy={140} r={4} fill="oklch(0.58 0.18 265)" />
+    <text x={290} y={170} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#0b1020">query</text>
+    <text x={220} y={100} fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#0b1020">top-3 neighbors</text>
+  </SvgStage>
+);
+
+const DiagRagGenerate = () => (
+  <SvgStage vb="0 0 640 280">
+    <Box x={20} y={30} w={180} h={50} label="Retrieved chunks" sub="3 × ~512 tokens" />
+    <Box x={20} y={100} w={180} h={50} label="User query" sub="natural language" />
+    <Box x={20} y={170} w={180} h={50} label="System prompt" sub="role + guardrails" />
+    <Arrow x1={200} y1={55} x2={290} y2={130} />
+    <Arrow x1={200} y1={125} x2={290} y2={140} />
+    <Arrow x1={200} y1={195} x2={290} y2={150} />
+    <Box x={290} y={110} w={140} h={60} label="Prompt" sub="assembled context" />
+    <Arrow x1={430} y1={140} x2={490} y2={140} />
+    <Box x={490} y={110} w={130} h={60} label="LLM" sub="grounded answer" accent />
+  </SvgStage>
+);
+
+// ---------- LLM Agent diagrams ----------
+const DiagAgentLoop = () => (
+  <SvgStage vb="0 0 640 300">
+    <Box x={260} y={20} w={120} h={50} label="Goal" sub="user task" />
+    <Arrow x1={320} y1={70} x2={320} y2={100} />
+    <Box x={240} y={100} w={160} h={60} label="LLM (planner)" sub="reason + choose tool" accent />
+    <Arrow x1={320} y1={160} x2={320} y2={185} label="action" />
+    <Box x={220} y={185} w={200} h={50} label="Tool call" sub="search / code / API" />
+    <Arrow x1={420} y1={210} x2={540} y2={210} />
+    <Box x={520} y={185} w={100} h={50} label="Env" sub="execute" />
+    <Arrow x1={570} y1={185} x2={570} y2={130} />
+    <Arrow x1={570} y1={130} x2={400} y2={130} label="observation" />
+    <text x={130} y={130} fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#5b6478">loop until done</text>
+    <path d="M 160 140 Q 200 160 240 160" fill="none" stroke="#5b6478" strokeDasharray="3 3" />
+  </SvgStage>
+);
+
+const DiagAgentReAct = () => (
+  <SvgStage vb="0 0 640 300">
+    <g>
+      <rect x={30} y={20} width={580} height={50} rx={10} fill="rgba(255,255,255,0.9)" stroke="rgba(12,18,40,0.14)" />
+      <text x={46} y={42} fontSize="11" fontWeight={600} fontFamily="JetBrains Mono, monospace" fill="#0b1020">Thought</text>
+      <text x={46} y={58} fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#2a3249">"I need last quarter's revenue — I should query the SQL tool."</text>
+    </g>
+    <Arrow x1={320} y1={70} x2={320} y2={95} />
+    <g>
+      <rect x={30} y={95} width={580} height={50} rx={10} fill="oklch(0.58 0.18 265)" />
+      <text x={46} y={117} fontSize="11" fontWeight={600} fontFamily="JetBrains Mono, monospace" fill="white">Action</text>
+      <text x={46} y={133} fontSize="11" fontFamily="JetBrains Mono, monospace" fill="rgba(255,255,255,0.85)">sql.run("SELECT SUM(rev) FROM orders WHERE q='Q4'")</text>
+    </g>
+    <Arrow x1={320} y1={145} x2={320} y2={170} />
+    <g>
+      <rect x={30} y={170} width={580} height={50} rx={10} fill="rgba(255,255,255,0.9)" stroke="rgba(12,18,40,0.14)" />
+      <text x={46} y={192} fontSize="11" fontWeight={600} fontFamily="JetBrains Mono, monospace" fill="#0b1020">Observation</text>
+      <text x={46} y={208} fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#2a3249">"$ 2,480,112"</text>
+    </g>
+    <Arrow x1={320} y1={220} x2={320} y2={245} />
+    <g>
+      <rect x={30} y={245} width={580} height={40} rx={10} fill="rgba(255,255,255,0.7)" stroke="rgba(12,18,40,0.14)" strokeDasharray="3 3" />
+      <text x={320} y={270} textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#5b6478">loop → next Thought, or Answer if sufficient</text>
+    </g>
+  </SvgStage>
+);
+
+const DiagAgentTools = () => (
+  <SvgStage vb="0 0 640 280">
+    <Box x={240} y={110} w={160} h={60} label="Agent" sub="selects tool by name" accent />
+    {/* tool cards */}
+    <Box x={30} y={20} w={150} h={50} label="search()" sub="web retrieval" />
+    <Box x={30} y={115} w={150} h={50} label="sql()" sub="query database" />
+    <Box x={30} y={210} w={150} h={50} label="calculator()" sub="arithmetic" />
+    <Box x={460} y={20} w={150} h={50} label="code_runner()" sub="python sandbox" />
+    <Box x={460} y={115} w={150} h={50} label="http_get()" sub="call API" />
+    <Box x={460} y={210} w={150} h={50} label="memory.write()" sub="persist note" />
+    <Arrow x1={180} y1={45} x2={240} y2={130} dashed />
+    <Arrow x1={180} y1={140} x2={240} y2={140} dashed />
+    <Arrow x1={180} y1={235} x2={240} y2={150} dashed />
+    <Arrow x1={400} y1={130} x2={460} y2={45} dashed />
+    <Arrow x1={400} y1={140} x2={460} y2={140} dashed />
+    <Arrow x1={400} y1={150} x2={460} y2={235} dashed />
+  </SvgStage>
+);
+
+const DiagAgentMemory = () => (
+  <SvgStage vb="0 0 640 280">
+    <Box x={240} y={110} w={160} h={60} label="Agent" accent />
+    <Box x={30} y={30} w={170} h={60} label="Short-term" sub="current scratchpad" />
+    <Box x={30} y={110} w={170} h={60} label="Episodic" sub="past interactions" />
+    <Box x={30} y={190} w={170} h={60} label="Semantic" sub="facts & docs (RAG)" />
+    <Arrow x1={200} y1={60} x2={240} y2={130} />
+    <Arrow x1={200} y1={140} x2={240} y2={140} />
+    <Arrow x1={200} y1={220} x2={240} y2={150} />
+    <Box x={440} y={110} w={170} h={60} label="Tool layer" sub="acts on world" />
+    <Arrow x1={400} y1={140} x2={440} y2={140} />
+  </SvgStage>
+);
+
+// ---------- Machine Learning diagrams ----------
+const DiagMlPipeline = () => (
+  <SvgStage vb="0 0 640 280">
+    <Box x={10} y={110} w={110} h={60} label="Raw data" sub="rows, images..." />
+    <Arrow x1={120} y1={140} x2={160} y2={140} />
+    <Box x={160} y={110} w={110} h={60} label="Features" sub="clean + encode" />
+    <Arrow x1={270} y1={140} x2={310} y2={140} />
+    <Box x={310} y={110} w={110} h={60} label="Model" sub="fit(X, y)" accent />
+    <Arrow x1={420} y1={140} x2={460} y2={140} />
+    <Box x={460} y={110} w={110} h={60} label="Predictions" sub="evaluate" />
+    <Arrow x1={515} y1={110} x2={515} y2={60} />
+    <Arrow x1={515} y1={60} x2={365} y2={60} label="loss" />
+    <Arrow x1={365} y1={60} x2={365} y2={110} dashed />
+  </SvgStage>
+);
+
+const DiagMlSupervised = () => (
+  <SvgStage vb="0 0 640 280">
+    {/* axes */}
+    <line x1={50} y1={240} x2={610} y2={240} stroke="#2a3249" strokeWidth={1} />
+    <line x1={50} y1={20} x2={50} y2={240} stroke="#2a3249" strokeWidth={1} />
+    <text x={325} y={270} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#5b6478">feature x</text>
+    <text x={30} y={130} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#5b6478" transform="rotate(-90 30 130)">label y</text>
+    {/* points */}
+    {[[90, 220],[140, 200],[190, 180],[240, 170],[290, 150],[340, 140],[390, 120],[440, 100],[490, 80],[540, 60]].map(([x,y],i) => (
+      <circle key={i} cx={x} cy={y + (i % 3 === 0 ? -8 : i % 3 === 1 ? 6 : 0)} r={5} fill="oklch(0.58 0.18 265)" />
+    ))}
+    {/* regression line */}
+    <line x1={70} y1={230} x2={580} y2={50} stroke="oklch(0.72 0.14 300)" strokeWidth={2} />
+    <text x={570} y={40} textAnchor="end" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="oklch(0.55 0.18 300)">ŷ = wx + b</text>
+  </SvgStage>
+);
+
+const DiagMlLoss = () => (
+  <SvgStage vb="0 0 640 280">
+    {/* bowl curve */}
+    <path d="M 40 40 Q 320 400 600 40" fill="none" stroke="rgba(12,18,40,0.2)" strokeWidth={1.5} />
+    {/* gradient steps */}
+    {[[80, 95],[160, 170],[240, 215],[310, 235],[380, 225],[450, 190],[520, 130]].map(([x,y],i) => (
+      <circle key={i} cx={x} cy={y} r={5} fill={i === 3 ? "oklch(0.58 0.18 265)" : "#858ea3"} />
+    ))}
+    <line x1={80} y1={95} x2={310} y2={235} stroke="oklch(0.58 0.18 265)" strokeWidth={1} strokeDasharray="3 3" />
+    <text x={80} y={82} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#0b1020">start</text>
+    <text x={310} y={260} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="oklch(0.55 0.18 265)">minimum · ∇L = 0</text>
+    <text x={320} y={30} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#5b6478">loss surface L(w)</text>
+  </SvgStage>
+);
+
+const DiagMlEval = () => (
+  <SvgStage vb="0 0 640 280">
+    <Box x={40} y={100} w={540} h={80} label="" fill="rgba(255,255,255,0.6)" stroke="rgba(12,18,40,0.14)" />
+    <rect x={40} y={100} width={340} height={80} rx={10} fill="oklch(0.92 0.04 265)" />
+    <rect x={380} y={100} width={100} height={80} rx={0} fill="oklch(0.88 0.06 300)" />
+    <rect x={480} y={100} width={100} height={80} rx={0} fill="oklch(0.85 0.09 40)" />
+    <text x={210} y={145} textAnchor="middle" fontSize="13" fontWeight={600} fontFamily="Inter" fill="#0b1020">Train</text>
+    <text x={210} y={162} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#5b6478">~60%</text>
+    <text x={430} y={145} textAnchor="middle" fontSize="12" fontWeight={600} fontFamily="Inter" fill="#0b1020">Val</text>
+    <text x={430} y={162} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#5b6478">~20%</text>
+    <text x={530} y={145} textAnchor="middle" fontSize="12" fontWeight={600} fontFamily="Inter" fill="#0b1020">Test</text>
+    <text x={530} y={162} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#5b6478">~20%</text>
+    <text x={310} y={80} textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#5b6478">how we split the data</text>
+    <text x={310} y={220} textAnchor="middle" fontSize="11" fontFamily="Inter" fill="#0b1020">
+      train fits weights · val tunes hyperparams · test is touched once
+    </text>
+  </SvgStage>
+);
+
+// ---------- Content ----------
+const KNOWLEDGE = [
+  {
+    id: "rag",
+    title: "Retrieval-Augmented Generation",
+    short: "RAG",
+    summary: "Give an LLM a knowledge base to lean on — so answers stay grounded and up-to-date without retraining.",
+    topics: ["chunking", "embeddings", "vector search", "grounding"],
+    depth: "intermediate",
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <path d="M4 7h12M4 12h16M4 17h10" stroke="oklch(0.58 0.18 265)" strokeWidth="1.8" strokeLinecap="round" />
+        <circle cx="19" cy="17" r="2.5" stroke="oklch(0.58 0.18 265)" strokeWidth="1.8" />
+      </svg>
+    ),
+    steps: [
+      {
+        title: "Why RAG exists",
+        lede: "LLMs have frozen training data. For anything private, fresh, or obscure, they hallucinate. RAG fixes this by retrieving relevant passages and stuffing them into the prompt as evidence.",
+        Diagram: DiagRagOverview,
+        notes: [
+          { h: "The core trick", b: <React.Fragment>Don't retrain the model — <code>retrieve</code> from a searchable index of your docs, then <code>generate</code> with that context.</React.Fragment> },
+          { h: "When to reach for it", b: <React.Fragment>Internal docs, rapidly-changing facts, citation requirements, or any domain too narrow to fine-tune on.</React.Fragment> },
+        ],
+      },
+      {
+        title: "Chunk & embed",
+        lede: "You can't cram a whole corpus into a prompt. Split docs into chunks (typically 200–1000 tokens) and encode each chunk as a dense vector using an embedding model.",
+        Diagram: DiagRagChunking,
+        notes: [
+          { h: "Chunk size tradeoff", b: <React.Fragment>Small = precise but loses context. Large = more context but diluted signal. Start at 512 with 10–15% overlap.</React.Fragment> },
+          { h: "Embedding model", b: <React.Fragment>Pick one tuned for your text domain (e.g. <code>text-embedding-3-small</code> for general English, or a multilingual model for i18n).</React.Fragment> },
+        ],
+      },
+      {
+        title: "Retrieve top-k",
+        lede: "At query time, embed the question with the same model and find the k nearest chunks in vector space — usually via cosine similarity in a vector DB (pgvector, Pinecone, etc.).",
+        Diagram: DiagRagRetrieval,
+        notes: [
+          { h: "Hybrid search wins", b: <React.Fragment>Combine dense (vector) and sparse (BM25) scores. Pure vector search often misses exact-term matches like product SKUs.</React.Fragment> },
+          { h: "Rerank on top", b: <React.Fragment>A cross-encoder reranker on the top-50 candidates often lifts quality more than a better embedding model.</React.Fragment> },
+        ],
+      },
+      {
+        title: "Generate & ground",
+        lede: "Assemble the retrieved chunks, user query, and a system prompt that tells the model to only answer from the given context — then generate.",
+        Diagram: DiagRagGenerate,
+        notes: [
+          { h: "Guardrail prompt", b: <React.Fragment>Include: "If the context doesn't contain the answer, say so." This cuts confident hallucinations sharply.</React.Fragment> },
+          { h: "Return citations", b: <React.Fragment>Ask the model to output chunk IDs alongside claims. Render them as footnotes — trust, but verify.</React.Fragment> },
+        ],
+      },
+    ],
+  },
+  {
+    id: "agent",
+    title: "LLM Agents",
+    short: "Agents",
+    summary: "An LLM becomes an agent when you let it think, pick tools, observe results, and loop until the goal is done.",
+    topics: ["planning", "tools", "ReAct", "memory"],
+    depth: "advanced",
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="10" r="3.5" stroke="oklch(0.58 0.18 265)" strokeWidth="1.8" />
+        <path d="M12 14v5M8 19h8M9 6.5L6 4M15 6.5L18 4" stroke="oklch(0.58 0.18 265)" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    ),
+    steps: [
+      {
+        title: "The agent loop",
+        lede: "Plain LLMs answer in one shot. An agent wraps the LLM in a loop: reason → act → observe → repeat. Tools extend its reach beyond text into real systems.",
+        Diagram: DiagAgentLoop,
+        notes: [
+          { h: "The cost knob", b: <React.Fragment>Each loop iteration is another model call. Budget a max step count so runaway agents can't burn your wallet.</React.Fragment> },
+          { h: "Termination", b: <React.Fragment>Agent stops when it emits a final answer, hits the step limit, or a tool returns an error it can't recover from.</React.Fragment> },
+        ],
+      },
+      {
+        title: "ReAct: think before you act",
+        lede: "The ReAct pattern structures each loop as a Thought → Action → Observation triple. The thought trace is pure text the model writes for itself; the action is a structured tool call.",
+        Diagram: DiagAgentReAct,
+        notes: [
+          { h: "Why it works", b: <React.Fragment>Chain-of-thought reduces brittle tool choices. The model plans in language first, then commits.</React.Fragment> },
+          { h: "Prompt shape", b: <React.Fragment>Few-shot with 2–3 examples of the Thought/Action/Observation format. Modern models also emit native <code>tool_use</code> blocks.</React.Fragment> },
+        ],
+      },
+      {
+        title: "Tool design",
+        lede: "Tools are just typed functions the model can call. The quality of your tool descriptions matters more than the model's size — a clear name + schema + one-line doc beats a clever prompt.",
+        Diagram: DiagAgentTools,
+        notes: [
+          { h: "Keep them small", b: <React.Fragment>Prefer many focused tools (<code>sql.run</code>, <code>sql.schema</code>) over one monolithic one. Easier to route, easier to debug.</React.Fragment> },
+          { h: "Fail loudly", b: <React.Fragment>Return structured errors — the model can recover from "table not found" if you tell it the table actually exists.</React.Fragment> },
+        ],
+      },
+      {
+        title: "Memory",
+        lede: "The scratchpad is short-term memory. For anything beyond one session, add persistent stores: episodic (what I did) and semantic (what I know — this is where RAG plugs in).",
+        Diagram: DiagAgentMemory,
+        notes: [
+          { h: "Context window is not memory", b: <React.Fragment>It's a cache. Summarize and evict — don't just keep appending or you'll blow the token budget.</React.Fragment> },
+          { h: "Write, then retrieve", b: <React.Fragment>Give the agent a <code>memory.write()</code> tool. Retrieval is automatic — the agent pulls relevant notes into the next turn.</React.Fragment> },
+        ],
+      },
+    ],
+  },
+  {
+    id: "ml",
+    title: "Machine Learning",
+    short: "ML",
+    summary: "The fundamentals: how a model learns a function from examples by minimizing loss on labeled data.",
+    topics: ["supervised", "loss", "gradient descent", "evaluation"],
+    depth: "foundational",
+    icon: (
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <path d="M4 20L8 14L12 16L20 6" stroke="oklch(0.58 0.18 265)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="8" cy="14" r="1.5" fill="oklch(0.58 0.18 265)" />
+        <circle cx="12" cy="16" r="1.5" fill="oklch(0.58 0.18 265)" />
+        <circle cx="20" cy="6" r="1.5" fill="oklch(0.58 0.18 265)" />
+      </svg>
+    ),
+    steps: [
+      {
+        title: "The ML pipeline",
+        lede: "Raw data becomes features, features train a model, the model makes predictions, predictions get compared against truth, and the error signal flows back to update the weights.",
+        Diagram: DiagMlPipeline,
+        notes: [
+          { h: "80% is data work", b: <React.Fragment>Cleaning, labeling, and feature engineering dominate. Swapping models rarely helps as much as fixing the data.</React.Fragment> },
+          { h: "Leakage is the silent killer", b: <React.Fragment>If test info sneaks into training features, your metrics lie. Always split <em>before</em> doing anything else.</React.Fragment> },
+        ],
+      },
+      {
+        title: "Supervised learning",
+        lede: "Given pairs (x, y), fit a function f such that f(x) ≈ y. Linear regression is the simplest example; neural nets are stacks of the same idea with nonlinearities.",
+        Diagram: DiagMlSupervised,
+        notes: [
+          { h: "Regression vs classification", b: <React.Fragment>Regression predicts a number (price, temp). Classification predicts a discrete class (spam / not spam).</React.Fragment> },
+          { h: "Inductive bias", b: <React.Fragment>The function family you choose — linear, tree, neural — encodes assumptions about the data. Match it to the shape of your problem.</React.Fragment> },
+        ],
+      },
+      {
+        title: "Loss & gradient descent",
+        lede: "Training means minimizing a loss function that scores prediction error. Gradient descent nudges weights in the direction that most reduces the loss, one small step at a time.",
+        Diagram: DiagMlLoss,
+        notes: [
+          { h: "Learning rate", b: <React.Fragment>Too small → training crawls. Too large → you bounce out of the minimum. Schedules (warmup + decay) help both problems.</React.Fragment> },
+          { h: "Common losses", b: <React.Fragment>MSE for regression, cross-entropy for classification. Loss choice reflects what you want to optimize for.</React.Fragment> },
+        ],
+      },
+      {
+        title: "Evaluate honestly",
+        lede: "Train/val/test splits exist so you can tell real learning from memorization. Tune on val, report on test — and only touch test once.",
+        Diagram: DiagMlEval,
+        notes: [
+          { h: "Metrics ≠ loss", b: <React.Fragment>Train loss is how the optimizer sees it. Business metrics (F1, AUC, MAE) are how stakeholders do. Track both.</React.Fragment> },
+          { h: "Baseline first", b: <React.Fragment>Always beat a dumb baseline (predict the mean, predict the majority class) before celebrating a new model.</React.Fragment> },
+        ],
+      },
+    ],
+  },
+];
+
+window.KNOWLEDGE = KNOWLEDGE;
+
+const { useState, useEffect, useMemo, useRef } = React;
+
+// ---------- Hero / Info ----------
+const Hero = ({ name, role, bio, location, handle }) => (
+  <GlassSurface className="hero" radius={36}>
+    <div className="hero-left">
+      <div className="status">
+        <span className="pulse" /> available for collaboration
+      </div>
+      <h1>
+        {name}, <span className="accent">building tools that think.</span>
+      </h1>
+      <p>{bio}</p>
+      <div className="hero-meta">
+        <span>◉ {role}</span>
+        <span>◴ {location}</span>
+        <span className="kbd">{handle}</span>
+      </div>
+      <div className="hero-actions">
+        <GlassPill active>→ view projects</GlassPill>
+        <GlassPill>✿ knowledge deck</GlassPill>
+        <GlassPill>↗ email me</GlassPill>
+      </div>
+    </div>
+    <div className="hero-right">
+      <div className="avatar-frame">
+        <div className="face">✦</div>
+      </div>
+      <div className="avatar-tag">design · code · data</div>
+    </div>
+  </GlassSurface>
+);
+
+// ---------- Projects ----------
+const ProjectVisual = () => (
+  <div className="project-visual">
+    <div className="mock-chat">
+      <div className="mock-row user">Revenue by region, last quarter?</div>
+      <div className="mock-row ai">Here's Q1 revenue across 6 regions, using the finance.orders table.</div>
+      <div className="mock-chart">
+        <div className="cap">Revenue · Q1 2026</div>
+        <div className="bars">
+          <span style={{ height: "40%" }} />
+          <span style={{ height: "72%" }} />
+          <span style={{ height: "55%" }} />
+          <span style={{ height: "90%" }} />
+          <span style={{ height: "62%" }} />
+          <span style={{ height: "48%" }} />
+        </div>
+      </div>
+      <div className="mock-row user">Break APAC down by country.</div>
+    </div>
+  </div>
+);
+
+const Projects = () => (
+  <section className="module" id="projects">
+    <div className="module-head">
+      <div>
+        <div className="module-eyebrow">01 · Projects</div>
+        <h2 className="module-title">What I'm building</h2>
+      </div>
+      <div className="module-sub">selected work · 2025–present</div>
+    </div>
+    <div className="projects-grid">
+      <GlassSurface className="project-card" radius={28}>
+        <div className="project-body">
+          <span className="project-pill">● Active · Flagship</span>
+          <h3>DAItaView</h3>
+          <p className="project-desc">
+            AI-powered data reporting platform. Ask natural-language questions about your data and get
+            interactive charts and tables back — backed by admin-curated knowledge that teaches the
+            system your company's data context.
+          </p>
+          <ul className="project-feats">
+            <li>Natural-language → SQL with a guided knowledge layer admins can edit.</li>
+            <li>Interactive charts, filters, and drilldowns rendered inline in the answer.</li>
+            <li>Grounded explanations + source links so every number can be audited.</li>
+          </ul>
+          <div className="project-tags">
+            <span className="tag">React</span>
+            <span className="tag">Python</span>
+            <span className="tag">LLM</span>
+            <span className="tag">pgvector</span>
+            <span className="tag">DuckDB</span>
+          </div>
+          <div style={{ display: "flex", gap: 10, marginTop: 18, flexWrap: "wrap" }}>
+            <a
+              href="https://github.com/yourname/daitaview"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none" }}
+            >
+              <GlassPill active>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 .5a11.5 11.5 0 0 0-3.63 22.41c.58.1.79-.25.79-.56v-2c-3.2.69-3.88-1.37-3.88-1.37-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.76 2.69 1.25 3.35.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.47.11-3.06 0 0 .97-.31 3.17 1.18a10.98 10.98 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.77.11 3.06.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z" />
+                </svg>
+                View on GitHub ↗
+              </GlassPill>
+            </a>
+            <a
+              href="https://daitaview.example.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: "none" }}
+            >
+              <GlassPill>Live demo →</GlassPill>
+            </a>
+          </div>
+        </div>
+        <ProjectVisual />
+      </GlassSurface>
+    </div>
+  </section>
+);
+
+// ---------- Knowledge ----------
+const KnowledgeGrid = ({ onOpen }) => (
+  <section className="module" id="knowledge">
+    <div className="module-head">
+      <div>
+        <div className="module-eyebrow">02 · Knowledge</div>
+        <h2 className="module-title">A deck to refresh my memory</h2>
+      </div>
+      <div className="module-sub">click a card to step through it</div>
+    </div>
+    <div className="knowledge-grid">
+      {window.KNOWLEDGE.map((k) => (
+        <GlassSurface key={k.id} className="k-card" radius={24} onClick={() => onOpen(k.id)}>
+          <div className="k-icon">{k.icon}</div>
+          <h3>{k.title}</h3>
+          <p className="k-desc">{k.summary}</p>
+          <div className="k-topics">
+            {k.topics.map((t) => <span key={t} className="k-topic">{t}</span>)}
+          </div>
+          <div className="k-meta">
+            <span>{k.steps.length} steps · {k.depth}</span>
+            <span className="open-arrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </div>
+        </GlassSurface>
+      ))}
+    </div>
+  </section>
+);
+
+// ---------- Detail overlay ----------
+const KnowledgeDetail = ({ topic, onClose }) => {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") setIdx((i) => Math.min(i + 1, topic.steps.length - 1));
+      if (e.key === "ArrowLeft") setIdx((i) => Math.max(i - 1, 0));
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [topic, onClose]);
+
+  const step = topic.steps[idx];
+  const Diagram = step.Diagram;
+
+  return (
+    <div className="overlay-root" onClick={(e) => e.target.classList.contains("overlay-root") && onClose()}>
+      <GlassSurface className="detail" radius={28}>
+        <button className="detail-close" onClick={onClose} aria-label="Close">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </button>
+        <div className="detail-header">
+          <div className="eyebrow">{topic.short} · knowledge walkthrough</div>
+          <h2>{topic.title}</h2>
+          <p>{topic.summary}</p>
+        </div>
+        <div className="detail-body">
+          <div className="step-rail">
+            {topic.steps.map((s, i) => (
+              <button key={i} className={`step-item ${i === idx ? "active" : ""} ${i < idx ? "done" : ""}`} onClick={() => setIdx(i)}>
+                <span className="num">{i < idx ? "✓" : i + 1}</span>
+                <span>{s.title}</span>
+              </button>
+            ))}
+          </div>
+          <div className="step-stage">
+            <div className="step-label">Step {idx + 1} of {topic.steps.length}</div>
+            <h3>{step.title}</h3>
+            <p className="lede">{step.lede}</p>
+            <div className="step-diagram"><Diagram /></div>
+            <div className="step-notes">
+              {step.notes.map((n, i) => (
+                <div key={i} className="note">
+                  <h4>{n.h}</h4>
+                  <p>{n.b}</p>
+                </div>
+              ))}
+            </div>
+            <div className="step-nav">
+              <GlassPill onClick={() => setIdx(Math.max(0, idx - 1))}>← prev</GlassPill>
+              <span className="counter">{String(idx + 1).padStart(2, "0")} / {String(topic.steps.length).padStart(2, "0")}</span>
+              <GlassPill active={idx < topic.steps.length - 1} onClick={() =>
+                idx < topic.steps.length - 1 ? setIdx(idx + 1) : onClose()
+              }>
+                {idx < topic.steps.length - 1 ? "next →" : "done ✓"}
+              </GlassPill>
+            </div>
+          </div>
+        </div>
+      </GlassSurface>
+    </div>
+  );
+};
+
+// ---------- Tweaks panel ----------
+const TweaksPanel = ({ visible, tweaks, setTweaks }) => {
+  if (!visible) return null;
+  return (
+    <GlassSurface className="tweaks" radius={20}>
+      <h4>Tweaks</h4>
+      <div className="tweak-row">
+        <label>Glass</label>
+        <div className="tweak-chips">
+          {["subtle", "medium", "heavy"].map((v) => (
+            <button key={v} className={`tweak-chip ${tweaks.glass === v ? "active" : ""}`}
+              onClick={() => setTweaks({ ...tweaks, glass: v })}>{v}</button>
+          ))}
+        </div>
+      </div>
+      <div className="tweak-row">
+        <label>Accent</label>
+        <div className="tweak-chips">
+          {[
+            { id: "indigo", h: 265 },
+            { id: "violet", h: 300 },
+            { id: "ocean", h: 230 },
+            { id: "mint", h: 165 },
+          ].map((c) => (
+            <div key={c.id}
+              className={`tweak-swatch ${tweaks.accent === c.id ? "active" : ""}`}
+              title={c.id}
+              style={{ background: `oklch(0.58 0.18 ${c.h})` }}
+              onClick={() => setTweaks({ ...tweaks, accent: c.id })}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="tweak-row">
+        <label>Background</label>
+        <div className="tweak-chips">
+          {["warm", "cool", "iridescent"].map((v) => (
+            <button key={v} className={`tweak-chip ${tweaks.bg === v ? "active" : ""}`}
+              onClick={() => setTweaks({ ...tweaks, bg: v })}>{v}</button>
+          ))}
+        </div>
+      </div>
+      <div className="tweak-row">
+        <label>Density</label>
+        <div className="tweak-chips">
+          {["comfy", "tight"].map((v) => (
+            <button key={v} className={`tweak-chip ${tweaks.density === v ? "active" : ""}`}
+              onClick={() => setTweaks({ ...tweaks, density: v })}>{v}</button>
+          ))}
+        </div>
+      </div>
+    </GlassSurface>
+  );
+};
+
+// ---------- App ----------
+const App = () => {
+  const [openId, setOpenId] = useState(null);
+  const [tweaksVisible, setTweaksVisible] = useState(false);
+  const [tweaks, setTweaks] = useState(window.__TWEAKS__ || {
+    glass: "medium", accent: "indigo", bg: "warm", density: "comfy",
+  });
+
+  // Apply tweaks
+  useEffect(() => {
+    const hueMap = { indigo: 265, violet: 300, ocean: 230, mint: 165 };
+    const root = document.documentElement;
+    const h = hueMap[tweaks.accent] || 265;
+    root.style.setProperty("--accent", `oklch(0.58 0.18 ${h})`);
+    root.style.setProperty("--accent-2", `oklch(0.65 0.15 ${h - 20})`);
+    root.style.setProperty("--accent-3", `oklch(0.72 0.14 ${h + 35})`);
+    document.body.dataset.bg = tweaks.bg;
+    document.body.dataset.density = tweaks.density;
+    // persist
+    window.parent.postMessage({ type: "__edit_mode_set_keys", edits: tweaks }, "*");
+  }, [tweaks]);
+
+  // Edit-mode protocol
+  useEffect(() => {
+    const onMsg = (e) => {
+      if (e.data?.type === "__activate_edit_mode") setTweaksVisible(true);
+      if (e.data?.type === "__deactivate_edit_mode") setTweaksVisible(false);
+    };
+    window.addEventListener("message", onMsg);
+    window.parent.postMessage({ type: "__edit_mode_available" }, "*");
+    return () => window.removeEventListener("message", onMsg);
+  }, []);
+
+  const openTopic = window.KNOWLEDGE.find((k) => k.id === openId);
+
+  return (
+    <React.Fragment>
+      <Background />
+      <div className="page">
+        <GlassSurface className="nav" radius={999}>
+          <div className="nav-brand">
+            <span className="dot" />
+            <span>portfolio · v2026</span>
+          </div>
+          <div className="nav-links">
+            <a className="nav-link active" href="#about">about</a>
+            <a className="nav-link" href="#projects">projects</a>
+            <a className="nav-link" href="#knowledge">knowledge</a>
+            <a className="nav-link" href="#contact">contact</a>
+          </div>
+        </GlassSurface>
+
+        <div id="about">
+          <Hero
+            name="Your Name"
+            role="Product engineer / data"
+            bio="I design and build human-in-the-loop AI products — interfaces that make language models useful to people who don't speak SQL. Mostly React on the front and Python on the back; always with a pen nearby."
+            location="Remote · GMT+8"
+            handle="@yourname"
+          />
+        </div>
+
+        <section className="module" id="contact" style={{ marginTop: -8, marginBottom: 56 }}>
+          <GlassSurface radius={24} style={{ padding: "20px 24px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <span style={{ font: "500 11px/1 var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted-2)" }}>Get in touch</span>
+                <span style={{ width: 1, height: 16, background: "rgba(12,18,40,0.12)" }} />
+                <span style={{ font: "400 14px var(--font-sans)", color: "var(--ink-2)" }}>Open to collaborations & freelance</span>
+              </div>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                <a href="mailto:hello@yourname.dev" style={{ textDecoration: "none" }}>
+                  <GlassPill>✉ hello@yourname.dev</GlassPill>
+                </a>
+                <a href="https://github.com/yourname" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                  <GlassPill>↗ github</GlassPill>
+                </a>
+                <a href="https://linkedin.com/in/yourname" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                  <GlassPill>↗ linkedin</GlassPill>
+                </a>
+              </div>
+            </div>
+          </GlassSurface>
+        </section>
+
+        <Projects />
+        <KnowledgeGrid onOpen={setOpenId} />
+
+        <footer style={{ textAlign: "center", font: "500 12px var(--font-mono)", color: "var(--muted-2)", marginTop: 40, letterSpacing: "0.06em" }}>
+          hand-crafted · glass v26 · {new Date().getFullYear()}
+        </footer>
+      </div>
+
+      {openTopic && <KnowledgeDetail topic={openTopic} onClose={() => setOpenId(null)} />}
+
+      <TweaksPanel visible={tweaksVisible} tweaks={tweaks} setTweaks={setTweaks} />
+    </React.Fragment>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+</script>
+</body>
+</html>
