@@ -33,34 +33,14 @@ html, body {
   overflow-x: hidden;
 }
 
-/* ============ BACKGROUND — PIXEL SUNRISE ============ */
-.bg-root {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-color: #c9d2df;
-  background-image: url("../assets/sunrise-pixel.png");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  overflow: hidden;
-}
-/* softening wash so UI reads cleanly */
-.bg-root::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.35) 55%, rgba(255,255,255,0.15) 100%);
-  pointer-events: none;
-}
+/* ============ BACKGROUND — ANIMATED CANVAS ============ */
+.bg-root { display: none; }
 .bg-grid { display: none; }
 .orb { display: none; }
 .orb-f { display: none; }
-@keyframes drift {
-  0%,100% { transform: translate(0,0) scale(1); }
-  33% { transform: translate(40px,-30px) scale(1.06); }
-  66% { transform: translate(-30px,20px) scale(0.96); }
-}
 .bg-noise { display: none; }
-.bg-root::after { display: none; }
+@keyframes drift {}
+
 
 /* ============ GLASS PRIMITIVES ============ */
 .glass-surface {
@@ -295,32 +275,20 @@ html, body {
   position: relative; width: 100%; height: 100%;
   border-radius: 28px;
   overflow: hidden;
-  background:
-    radial-gradient(80% 60% at 30% 20%, #f2d5a8 0%, transparent 60%),
-    radial-gradient(80% 60% at 80% 100%, #7991c2 0%, transparent 55%),
-    linear-gradient(135deg, #d3b999 0%, #9fb2d4 50%, #5c7aa6 100%);
+  background: #e8eaf0;
   box-shadow: var(--shadow-lg);
 }
-.avatar-frame::before {
-  content: "";
+.avatar-photo {
   position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='b'><feTurbulence type='fractalNoise' baseFrequency='0.015 0.11' numOctaves='3' seed='9'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 0.95  0 0 0 0 0.8  0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23b)'/></svg>");
-  mix-blend-mode: soft-light;
-  opacity: 0.8;
-}
-.avatar-frame .face {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font: 300 120px var(--font-display);
-  color: rgba(255,255,255,0.85);
-  letter-spacing: -0.05em;
-  text-shadow: 0 6px 20px rgba(30,40,90,0.25);
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 .avatar-frame::after {
   content: ""; position: absolute; inset: 0;
-  background:
-    radial-gradient(80% 40% at 30% 10%, rgba(255,255,255,0.45), transparent 60%),
-    linear-gradient(180deg, transparent 60%, rgba(20,30,80,0.15));
+  background: linear-gradient(180deg, transparent 65%, rgba(20,30,80,0.12));
+  pointer-events: none;
 }
 .avatar-tag {
   position: absolute; bottom: -14px; left: 50%;
