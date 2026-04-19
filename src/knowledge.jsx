@@ -366,13 +366,13 @@ const DiagSimilarityMetrics = () => {
       <text x={ox - 12} y={oy + 14} fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#5b6478">O</text>
       {/* vector A */}
       <line x1={ox} y1={oy} x2={ax} y2={ay} stroke="#0b1020" strokeWidth="2" markerEnd="url(#sim-arr)" />
-      <text x={ax + 6} y={ay - 4} fontSize="13" fontWeight="600" fontFamily="Inter, system-ui" fill="#0b1020">A</text>
+      <text x={ax + 6} y={ay - 4} fontSize="13" fontWeight={600} fontFamily="Inter, system-ui" fill="#0b1020">A</text>
       {/* vector B */}
       <line x1={ox} y1={oy} x2={bx} y2={by} stroke="#0b1020" strokeWidth="2" markerEnd="url(#sim-arr)" />
-      <text x={bx + 6} y={by + 4} fontSize="13" fontWeight="600" fontFamily="Inter, system-ui" fill="#0b1020">B</text>
+      <text x={bx + 6} y={by + 4} fontSize="13" fontWeight={600} fontFamily="Inter, system-ui" fill="#0b1020">B</text>
       {/* cosine arc θ — accent blue, arc from (129,193) to (154,232) */}
       <path d="M 129 193 A 55 55 0 0 1 154 232" fill="none" stroke="oklch(0.58 0.18 265)" strokeWidth="2.5" />
-      <text x={155} y={202} fontSize="12" fontWeight="700" fontFamily="JetBrains Mono, monospace" fill="oklch(0.45 0.18 265)">θ</text>
+      <text x={155} y={202} fontSize="12" fontWeight={700} fontFamily="JetBrains Mono, monospace" fill="oklch(0.45 0.18 265)">θ</text>
       {/* cosine label pill */}
       <rect x={116} y={130} width={210} height={22} rx="5" fill="oklch(0.94 0.05 265)" stroke="oklch(0.75 0.12 265)" strokeWidth="1" />
       <text x={221} y={145} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="oklch(0.38 0.18 265)">cos θ = A·B / (|A| |B|)</text>
