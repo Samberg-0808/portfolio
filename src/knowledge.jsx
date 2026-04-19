@@ -342,6 +342,59 @@ const DiagHnswSearch = () => (
   </SvgStage>
 );
 
+const DiagSimilarityMetrics = () => {
+  // Origin O=(100,240), vector A tip=(200,80), vector B tip=(440,190)
+  // Arc endpoints at r=55 along each vector direction
+  const ox = 100, oy = 240;
+  const ax = 200, ay = 80;
+  const bx = 440, by = 190;
+  // Unit vector OA: (100,-160)/188.7 ≈ (0.530,-0.848); at r=55: (129,193)
+  // Unit vector OB: (340,-50)/343.7 ≈ (0.989,-0.145); at r=55: (154,232)
+  // Projection foot of A onto OB line: (221,222)
+  return (
+    <SvgStage vb="0 0 640 300">
+      <defs>
+        <marker id="sim-arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0,0 L8,4 L0,8 z" fill="#0b1020" />
+        </marker>
+      </defs>
+      {/* axis guide lines */}
+      <line x1={ox} y1={20} x2={ox} y2={oy} stroke="rgba(12,18,40,0.08)" strokeWidth="1" />
+      <line x1={ox} y1={oy} x2={580} y2={oy} stroke="rgba(12,18,40,0.08)" strokeWidth="1" />
+      {/* origin */}
+      <circle cx={ox} cy={oy} r={4} fill="#0b1020" />
+      <text x={ox - 12} y={oy + 14} fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#5b6478">O</text>
+      {/* vector A */}
+      <line x1={ox} y1={oy} x2={ax} y2={ay} stroke="#0b1020" strokeWidth="2" markerEnd="url(#sim-arr)" />
+      <text x={ax + 6} y={ay - 4} fontSize="13" fontWeight="600" fontFamily="Inter, system-ui" fill="#0b1020">A</text>
+      {/* vector B */}
+      <line x1={ox} y1={oy} x2={bx} y2={by} stroke="#0b1020" strokeWidth="2" markerEnd="url(#sim-arr)" />
+      <text x={bx + 6} y={by + 4} fontSize="13" fontWeight="600" fontFamily="Inter, system-ui" fill="#0b1020">B</text>
+      {/* cosine arc θ — accent blue, arc from (129,193) to (154,232) */}
+      <path d="M 129 193 A 55 55 0 0 1 154 232" fill="none" stroke="oklch(0.58 0.18 265)" strokeWidth="2.5" />
+      <text x={155} y={202} fontSize="12" fontWeight="700" fontFamily="JetBrains Mono, monospace" fill="oklch(0.45 0.18 265)">θ</text>
+      {/* cosine label pill */}
+      <rect x={116} y={130} width={210} height={22} rx="5" fill="oklch(0.94 0.05 265)" stroke="oklch(0.75 0.12 265)" strokeWidth="1" />
+      <text x={221} y={145} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="oklch(0.38 0.18 265)">cos θ = A·B / (|A| |B|)</text>
+      {/* Euclidean dashed line A→B */}
+      <line x1={ax} y1={ay} x2={bx} y2={by} stroke="oklch(0.62 0.18 30)" strokeWidth="1.5" strokeDasharray="5 3" />
+      <text x={(ax + bx) / 2 + 10} y={(ay + by) / 2 - 12} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="oklch(0.48 0.18 30)">‖A − B‖</text>
+      {/* dot product: perpendicular from A tip to projection foot on OB */}
+      <line x1={ax} y1={ay} x2={221} y2={222} stroke="#858ea3" strokeWidth="1.5" strokeDasharray="3 3" />
+      {/* right-angle mark at projection foot (221,222) */}
+      <polyline points="215,213 224,210 227,219" fill="none" stroke="#858ea3" strokeWidth="1.2" />
+      <text x={232} y={242} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#5b6478">A·B (proj)</text>
+      {/* legend */}
+      <line x1={480} y1={38} x2={510} y2={38} stroke="oklch(0.58 0.18 265)" strokeWidth="2.5" />
+      <text x={516} y={42} fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#0b1020">cosine</text>
+      <line x1={480} y1={58} x2={510} y2={58} stroke="oklch(0.62 0.18 30)" strokeWidth="1.5" strokeDasharray="5 3" />
+      <text x={516} y={62} fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#0b1020">Euclidean (L2)</text>
+      <line x1={480} y1={78} x2={510} y2={78} stroke="#858ea3" strokeWidth="1.5" strokeDasharray="3 3" />
+      <text x={516} y={82} fontSize="10" fontFamily="JetBrains Mono, monospace" fill="#0b1020">dot product</text>
+    </SvgStage>
+  );
+};
+
 const DiagAdvancedRag = () => (
   <SvgStage vb="0 0 640 300">
     <Box x={20} y={125} w={100} h={50} label="User query" />
