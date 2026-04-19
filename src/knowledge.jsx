@@ -743,6 +743,24 @@ const KNOWLEDGE = [
         ],
       },
       {
+        title: "Vector similarity metrics",
+        lede: "Three distance functions dominate vector search: cosine similarity measures the angle between vectors (ignoring magnitude), dot product is the unnormalized inner product, and Euclidean distance measures straight-line separation. Choosing the right one for your embedding model changes retrieval quality significantly.",
+        Diagram: DiagSimilarityMetrics,
+        notes: [
+          { h: "Cosine for text", b: <React.Fragment>Embedding models like <code>text-embedding-3</code> encode meaning in <em>direction</em>, not magnitude. Cosine cancels out length differences between short and long documents — the default choice for RAG pipelines.</React.Fragment> },
+          { h: "Dot product when vectors are unit-normalised", b: <React.Fragment>If your vector DB stores unit-norm vectors (many do by default), dot product and cosine are mathematically identical but dot product skips the normalisation division — roughly 10–20% faster. Euclidean is preferred for image or audio embeddings where magnitude carries semantic information.</React.Fragment> },
+        ],
+      },
+      {
+        title: "Index types: IVFFlat vs HNSW",
+        lede: "Vector DBs offer multiple index types with very different speed/recall/memory tradeoffs. IVFFlat partitions the space into Voronoi cells and searches only the nearest cells at query time — low memory, but recall depends on how many cells you probe. HNSW builds a navigable graph and is faster at query time, but costs significantly more memory.",
+        Diagram: DiagIvfflatVsHnsw,
+        notes: [
+          { h: "Pick IVFFlat when memory is tight", b: <React.Fragment>IVFFlat stores only raw vectors plus a compact inverted list — no graph edges. At 1B vectors, HNSW's edge overhead adds hundreds of GB. IVFFlat also supports cheap add/delete; HNSW deletions require a mark-deleted workaround and periodic rebuild.</React.Fragment> },
+          { h: "Pick HNSW when latency matters", b: <React.Fragment>HNSW consistently achieves higher recall at the same query latency. IVFFlat recall drops sharply if <code>nprobe</code> is too low; raising it recovers recall but increases query time linearly. For interactive RAG with tight p99 latency requirements, HNSW is the safer default.</React.Fragment> },
+        ],
+      },
+      {
         title: "Advanced retrieval patterns",
         lede: "Vanilla single-query retrieval often misses relevant chunks. Multi-query expansion generates several query variants in parallel; HyDE embeds a hypothetical answer rather than the question itself to close the query-document gap.",
         Diagram: DiagAdvancedRag,
