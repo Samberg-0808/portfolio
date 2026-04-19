@@ -395,6 +395,80 @@ const DiagSimilarityMetrics = () => {
   );
 };
 
+const DiagIvfflatVsHnsw = () => (
+  <SvgStage vb="0 0 640 300">
+    {/* ── Left panel: IVFFlat ── */}
+    <rect x={12} y={12} width={290} height={276} rx="10" fill="rgba(255,255,255,0.7)" stroke="rgba(12,18,40,0.14)" />
+    <text x={157} y={32} textAnchor="middle" fontSize="12" fontWeight={600} fontFamily="Inter, system-ui" fill="#0b1020">IVFFlat</text>
+    {/* cell boundary lines (rough Voronoi dividers) */}
+    <line x1={157} y1={44} x2={157} y2={268} stroke="rgba(12,18,40,0.15)" strokeWidth="1" strokeDasharray="4 3" />
+    <line x1={20} y1={156} x2={294} y2={156} stroke="rgba(12,18,40,0.15)" strokeWidth="1" strokeDasharray="4 3" />
+    {/* probed cells highlight (top-left and top-right) */}
+    <rect x={14} y={44} width={141} height={110} rx="8" fill="oklch(0.92 0.05 265)" opacity="0.6" />
+    <rect x={158} y={44} width={141} height={110} rx="8" fill="oklch(0.92 0.05 265)" opacity="0.6" />
+    {/* dots — top-left cluster (probed) */}
+    <circle cx={55}  cy={75}  r={5} fill="oklch(0.58 0.18 265)" />
+    <circle cx={88}  cy={90}  r={5} fill="oklch(0.58 0.18 265)" />
+    <circle cx={70}  cy={118} r={5} fill="oklch(0.58 0.18 265)" />
+    <circle cx={115} cy={80}  r={5} fill="oklch(0.58 0.18 265)" />
+    <circle cx={130} cy={130} r={5} fill="oklch(0.58 0.18 265)" />
+    {/* dots — top-right cluster (probed) */}
+    <circle cx={185} cy={68}  r={5} fill="oklch(0.58 0.18 265)" />
+    <circle cx={220} cy={95}  r={5} fill="oklch(0.58 0.18 265)" />
+    <circle cx={200} cy={128} r={5} fill="oklch(0.58 0.18 265)" />
+    <circle cx={255} cy={72}  r={5} fill="oklch(0.58 0.18 265)" />
+    {/* dots — bottom clusters (not probed) */}
+    <circle cx={60}  cy={185} r={5} fill="#c8cdd9" />
+    <circle cx={100} cy={210} r={5} fill="#c8cdd9" />
+    <circle cx={130} cy={190} r={5} fill="#c8cdd9" />
+    <circle cx={190} cy={200} r={5} fill="#c8cdd9" />
+    <circle cx={240} cy={220} r={5} fill="#c8cdd9" />
+    <circle cx={270} cy={185} r={5} fill="#c8cdd9" />
+    {/* query point */}
+    <circle cx={148} cy={110} r={7} fill="none" stroke="#e05a5a" strokeWidth="2" strokeDasharray="3 2" />
+    <circle cx={148} cy={110} r={3} fill="#e05a5a" />
+    {/* probe radius circle */}
+    <circle cx={148} cy={110} r={58} fill="none" stroke="#e05a5a" strokeWidth="1.5" strokeDasharray="5 4" opacity="0.6" />
+    <text x={148} y={125} textAnchor="middle" fontSize="8" fontFamily="JetBrains Mono, monospace" fill="#e05a5a">query</text>
+    {/* labels */}
+    <text x={157} y={256} textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill="#5b6478">nlist = 4 clusters</text>
+    <text x={157} y={271} textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill="#5b6478">nprobe = 2 cells searched</text>
+
+    {/* ── Right panel: HNSW ── */}
+    <rect x={338} y={12} width={290} height={276} rx="10" fill="rgba(255,255,255,0.7)" stroke="rgba(12,18,40,0.14)" />
+    <text x={483} y={32} textAnchor="middle" fontSize="12" fontWeight={600} fontFamily="Inter, system-ui" fill="#0b1020">HNSW</text>
+    {/* Layer 1 (coarse) */}
+    <rect x={348} y={44} width={270} height={80} rx="8" fill="rgba(255,255,255,0.5)" stroke="rgba(12,18,40,0.12)" strokeDasharray="4 3" />
+    <text x={358} y={62} fontSize="9" fontWeight={600} fontFamily="JetBrains Mono, monospace" fill="#858ea3">Layer 1</text>
+    <circle cx={400} cy={88} r={6} fill="#c8cdd9" />
+    <circle cx={460} cy={78} r={8} fill="oklch(0.58 0.18 265)" />
+    <circle cx={540} cy={92} r={6} fill="#c8cdd9" />
+    <circle cx={590} cy={76} r={6} fill="#c8cdd9" />
+    <line x1={400} y1={88} x2={460} y2={78} stroke="rgba(12,18,40,0.2)" strokeWidth="1" />
+    <line x1={460} y1={78} x2={540} y2={92} stroke="rgba(12,18,40,0.2)" strokeWidth="1" />
+    <line x1={540} y1={92} x2={590} y2={76} stroke="rgba(12,18,40,0.2)" strokeWidth="1" />
+    <text x={460} y={100} textAnchor="middle" fontSize="8" fontFamily="JetBrains Mono, monospace" fill="#2a3249">entry</text>
+    {/* descent arrow — use Arrow component so its defs marker is present */}
+    <Arrow x1={460} y1={124} x2={460} y2={144} />
+    {/* Layer 0 (dense) */}
+    <rect x={348} y={148} width={270} height={100} rx="8" fill="rgba(255,255,255,0.8)" stroke="rgba(12,18,40,0.15)" />
+    <text x={358} y={166} fontSize="9" fontWeight={600} fontFamily="JetBrains Mono, monospace" fill="#0b1020">Layer 0</text>
+    {[375,405,430,458,482,510,540,565].map((cx, i) => (
+      <circle key={i} cx={cx} cy={210} r={i >= 2 && i <= 4 ? 7 : 4}
+        fill={i >= 2 && i <= 4 ? "oklch(0.58 0.18 265)" : "#c8cdd9"} />
+    ))}
+    {/* edges in layer 0 */}
+    {[375,405,430,458,482,510,540].map((cx, i) => (
+      <line key={i} x1={cx} y1={210} x2={[375,405,430,458,482,510,540,565][i+1]} y2={210}
+        stroke="rgba(12,18,40,0.18)" strokeWidth="1" />
+    ))}
+    <text x={483} y={234} textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill="#2a3249">top-3 neighbours</text>
+    {/* labels */}
+    <text x={483} y={256} textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill="#5b6478">M = edges per node</text>
+    <text x={483} y={271} textAnchor="middle" fontSize="9" fontFamily="JetBrains Mono, monospace" fill="#5b6478">ef_search = beam width</text>
+  </SvgStage>
+);
+
 const DiagAdvancedRag = () => (
   <SvgStage vb="0 0 640 300">
     <Box x={20} y={125} w={100} h={50} label="User query" />
