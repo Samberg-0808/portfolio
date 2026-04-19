@@ -38,18 +38,22 @@ const GlassPill = ({ children, className = "", style = {}, onClick, active = fal
   </button>
 );
 
-// Animated background: slow-drifting colorful orbs that glass refracts.
-const Background = () => (
-  <div className="bg-root" aria-hidden="true">
-    <div className="bg-grid" />
-    <div className="orb orb-a" />
-    <div className="orb orb-b" />
-    <div className="orb orb-c" />
-    <div className="orb orb-d" />
-    <div className="orb orb-e" />
-    <div className="orb-f" />
-    <div className="bg-noise" />
-  </div>
-);
+const Background = () => {
+  React.useEffect(() => {
+    if (window.initBgCanvas) window.initBgCanvas();
+  }, []);
+  return (
+    <canvas
+      id="bg-canvas"
+      aria-hidden="true"
+      style={{
+        position: "fixed", inset: 0, zIndex: 0,
+        width: "100vw", height: "100vh",
+        display: "block", pointerEvents: "none",
+        imageRendering: "pixelated",
+      }}
+    />
+  );
+};
 
 Object.assign(window, { GlassSurface, GlassPill, Background });
