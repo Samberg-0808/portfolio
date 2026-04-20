@@ -1,4 +1,5 @@
 const { useState, useEffect, useMemo, useRef } = React;
+const { GlassSurface, GlassPill, Background, KnowledgeGrid, KnowledgeDetail } = window;
 
 // ---------- Hero / Info ----------
 const Hero = ({ name, role, bio, location, handle }) => (
@@ -24,7 +25,7 @@ const Hero = ({ name, role, bio, location, handle }) => (
     </div>
     <div className="hero-right">
       <div className="avatar-frame">
-        <div className="face">✦</div>
+        <img src="assets/selfie.PNG" alt="Shibo Zhang" className="avatar-photo" />
       </div>
       <div className="avatar-tag">design · code · data</div>
     </div>
@@ -86,7 +87,7 @@ const Projects = () => (
           </div>
           <div style={{ display: "flex", gap: 10, marginTop: 18, flexWrap: "wrap" }}>
             <a
-              href="https://github.com/yourname/daitaview"
+              href="https://github.com/Samberg-0808/DAItaView"
               target="_blank"
               rel="noopener noreferrer"
               style={{ textDecoration: "none" }}
@@ -113,110 +114,6 @@ const Projects = () => (
     </div>
   </section>
 );
-
-// ---------- Knowledge ----------
-const KnowledgeGrid = ({ onOpen }) => (
-  <section className="module" id="knowledge">
-    <div className="module-head">
-      <div>
-        <div className="module-eyebrow">02 · Knowledge</div>
-        <h2 className="module-title">A deck to refresh my memory</h2>
-      </div>
-      <div className="module-sub">click a card to step through it</div>
-    </div>
-    <div className="knowledge-grid">
-      {window.KNOWLEDGE.map((k) => (
-        <GlassSurface key={k.id} className="k-card" radius={24} onClick={() => onOpen(k.id)}>
-          <div className="k-icon">{k.icon}</div>
-          <h3>{k.title}</h3>
-          <p className="k-desc">{k.summary}</p>
-          <div className="k-topics">
-            {k.topics.map((t) => <span key={t} className="k-topic">{t}</span>)}
-          </div>
-          <div className="k-meta">
-            <span>{k.steps.length} steps · {k.depth}</span>
-            <span className="open-arrow">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </div>
-        </GlassSurface>
-      ))}
-    </div>
-  </section>
-);
-
-// ---------- Detail overlay ----------
-const KnowledgeDetail = ({ topic, onClose }) => {
-  const [idx, setIdx] = useState(0);
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "ArrowRight") setIdx((i) => Math.min(i + 1, topic.steps.length - 1));
-      if (e.key === "ArrowLeft") setIdx((i) => Math.max(i - 1, 0));
-    };
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [topic, onClose]);
-
-  const step = topic.steps[idx];
-  const Diagram = step.Diagram;
-
-  return (
-    <div className="overlay-root" onClick={(e) => e.target.classList.contains("overlay-root") && onClose()}>
-      <GlassSurface className="detail" radius={28}>
-        <button className="detail-close" onClick={onClose} aria-label="Close">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </button>
-        <div className="detail-header">
-          <div className="eyebrow">{topic.short} · knowledge walkthrough</div>
-          <h2>{topic.title}</h2>
-          <p>{topic.summary}</p>
-        </div>
-        <div className="detail-body">
-          <div className="step-rail">
-            {topic.steps.map((s, i) => (
-              <button key={i} className={`step-item ${i === idx ? "active" : ""} ${i < idx ? "done" : ""}`} onClick={() => setIdx(i)}>
-                <span className="num">{i < idx ? "✓" : i + 1}</span>
-                <span>{s.title}</span>
-              </button>
-            ))}
-          </div>
-          <div className="step-stage">
-            <div className="step-label">Step {idx + 1} of {topic.steps.length}</div>
-            <h3>{step.title}</h3>
-            <p className="lede">{step.lede}</p>
-            <div className="step-diagram"><Diagram /></div>
-            <div className="step-notes">
-              {step.notes.map((n, i) => (
-                <div key={i} className="note">
-                  <h4>{n.h}</h4>
-                  <p>{n.b}</p>
-                </div>
-              ))}
-            </div>
-            <div className="step-nav">
-              <GlassPill onClick={() => setIdx(Math.max(0, idx - 1))}>← prev</GlassPill>
-              <span className="counter">{String(idx + 1).padStart(2, "0")} / {String(topic.steps.length).padStart(2, "0")}</span>
-              <GlassPill active={idx < topic.steps.length - 1} onClick={() =>
-                idx < topic.steps.length - 1 ? setIdx(idx + 1) : onClose()
-              }>
-                {idx < topic.steps.length - 1 ? "next →" : "done ✓"}
-              </GlassPill>
-            </div>
-          </div>
-        </div>
-      </GlassSurface>
-    </div>
-  );
-};
 
 // ---------- Tweaks panel ----------
 const TweaksPanel = ({ visible, tweaks, setTweaks }) => {
@@ -327,11 +224,11 @@ const App = () => {
 
         <div id="about">
           <Hero
-            name="Your Name"
-            role="Product engineer / data"
+            name="Shibo Zhang"
+            role="Full Stack Engineer - AI/data"
             bio="I design and build human-in-the-loop AI products — interfaces that make language models useful to people who don't speak SQL. Mostly React on the front and Python on the back; always with a pen nearby."
-            location="Remote · GMT+8"
-            handle="@yourname"
+            location="Bay Area CA · PST"
+            handle="@Shibo Zhang"
           />
         </div>
 
@@ -341,16 +238,16 @@ const App = () => {
               <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                 <span style={{ font: "500 11px/1 var(--font-mono)", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted-2)" }}>Get in touch</span>
                 <span style={{ width: 1, height: 16, background: "rgba(12,18,40,0.12)" }} />
-                <span style={{ font: "400 14px var(--font-sans)", color: "var(--ink-2)" }}>Open to collaborations & freelance</span>
+                <span style={{ font: "400 14px var(--font-sans)", color: "var(--ink-2)" }}>Open to collaborations</span>
               </div>
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                 <a href="mailto:hello@yourname.dev" style={{ textDecoration: "none" }}>
-                  <GlassPill>✉ hello@yourname.dev</GlassPill>
+                  <GlassPill>✉ shibozhang0808@gmail.com</GlassPill>
                 </a>
-                <a href="https://github.com/yourname" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                <a href="https://github.com/Samberg-0808" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                   <GlassPill>↗ github</GlassPill>
                 </a>
-                <a href="https://linkedin.com/in/yourname" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                <a href="https://www.linkedin.com/in/shibo-zhang-a99373203/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                   <GlassPill>↗ linkedin</GlassPill>
                 </a>
               </div>
